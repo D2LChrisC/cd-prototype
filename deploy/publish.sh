@@ -25,7 +25,7 @@ terraform/terraform -version
 echo "Deploying environments..."
 cd terraform
 for d in */ ; do
-	cd d
+	cd $d
 	terraform plan
 	cd ..
 done
