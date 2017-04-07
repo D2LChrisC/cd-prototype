@@ -5,6 +5,7 @@ echo "Setting AWS credentials..."
 aws configure set aws_access_key_id $2
 aws configure set aws_secret_access_key $3
 aws configure set default.region us-east-1
+aws configure set s3.signature_version s3v4
 
 # log into ECR
 echo "Logging into AWS ECR..."
@@ -17,5 +18,5 @@ docker push $1.dkr.ecr.us-east-1.amazonaws.com/$4:latest
 
 mkdir terraform
 aws s3 sync s3://d2l-docbuilder-terraform-$1 ./terraform
-unzip ./terraform/terraform.zip
+unzip ./terraform/terraform.zip -d ./terraform
 terraform/terraform -version
