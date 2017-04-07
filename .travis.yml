@@ -6,7 +6,6 @@ services:
 install: deploy/install.sh
 
 script:
-
-after_success:
+  - docker build -t service .
 
 deploy:
