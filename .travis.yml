@@ -1,0 +1,12 @@
+language: javascript
+sudo: required
+services:
+  - docker
+
+install: deploy/install.sh
+
+script:
+
+after_success:
+
+deploy:
