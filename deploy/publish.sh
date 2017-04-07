@@ -20,12 +20,11 @@ echo "Getting Terraform assets from S3..."
 mkdir terraform
 aws s3 sync s3://d2l-docbuilder-terraform-$1 ./terraform
 unzip ./terraform/terraform.zip -d ./terraform
-terraform/terraform -version
 
 echo "Deploying environments..."
 cd terraform
 for d in */ ; do
 	cd $d
-	terraform plan
+	../terraform plan
 	cd ..
 done
