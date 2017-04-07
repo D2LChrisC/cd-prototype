@@ -16,7 +16,16 @@ echo "Tagging and pushing docker image..."
 docker tag $4:latest $1.dkr.ecr.us-east-1.amazonaws.com/$4:latest
 docker push $1.dkr.ecr.us-east-1.amazonaws.com/$4:latest
 
+echo "Getting Terraform assets from S3..."
 mkdir terraform
 aws s3 sync s3://d2l-docbuilder-terraform-$1 ./terraform
 unzip ./terraform/terraform.zip -d ./terraform
 terraform/terraform -version
+
+echo "Deploying environments..."
+cd terraform
+for d in */ ; do
+	cd d
+	terraform plan
+	cd ..
+done
