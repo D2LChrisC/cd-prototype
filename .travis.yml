@@ -1,11 +1,19 @@
 language: javascript
 sudo: required
 services:
-  - docker
-
+- docker
+env:
+  global:
+  - AWS_DEV_ACCOUNT_ID=057731502320
+  - AWS_DEV_KEY=AKIAIMHKU6FUUGCYUVBA
+  - AWS_PROD_KEY=AKIAJQZL7HDIX4EJHSCA
+  - secure: lc0nbhqrhnicsqMLzgCMl73M3vELbaYsIR+q3cLtXm2VyDTTrrCN+1XvfENcpDR6tbAAXfG0vuZZozUYkTL8mmY1TBho8vBSTvTkOaD0vhpRzk9WuN17BXFp33jmv+qy8ZTkBcjNnNOSqPDs/TTTXpamNQxeMS1Le0S/FJtvO9Rk1HEVD5hTdJvtkhKLnmnnQu2FdvJyNftJCuIbcIwBiOkASXrzGuuFN1TCsmlpECidZUMw65YXRbtbNS14j75gD7zqpQ2Kj7qc6lbitHE09Q48IBONL6ZM7ZGfM18ReXPAazQwppO1cDeNoy1Ly+WLTEdeKBwVRb/GRQKi/fKE+1HZdSBeTHQvbt9PODEYwvr92Y28vv6b4A0Gi6+lZurXIU49eEpf7uvhGEgjQIaz7j8NPwidBwzt1mB38ra39KqnEcah7hbTUdFMCGj4itJqDdmv1jGG+Nxma3fSL97Ih82rRSKbDvipUAikY+BYijcIUHCM1J165rZDRbEVUH4e3Q+qkhPpCLxj6mDjQLG2qVCeXt6B2ErpoDbuYy+QAJYybLcDs0ZFLHo13loz/fG0F12kCrQgl2urQmCEwXe6UjVpFy47Y1QKp24j6AJMzGQVCPTpLkmeOpKSRO34tbpqz68NdyfraWKPmmMEchKuYEAcvDhZJZu4BqSiEfgx1p8=
+  - secure: wPeR5HTt5rnlhzJ8pWZ2KR+mAyVrqga22fm8BV31YiBHpzwQE02KQGabuQaVvT8yN4CVSXatT5d4xq9vxikvV2NuhelvJXlB4iI3OiYXaeUSfUtKHpk1Nxn0//jcujvyt7uhPqwo6cO9BZfrs6Ytk2tUgdXwQhctAa+Oggqmu3VKXGEWPd5Gia1nRMDS4+1Cw7jr376RkaV7as7RAA1cKqWRUOoY0sXCqqT8hcUrnmFZRW94WGpgVZvisUu20xomORjUyoWqou9WTcjKgP5FiWWlzkZwXR/9cDc0FkPjgkxZUWkoUlOmg5krmwmOnr/aCU/OFWJUi+bfEAzrTkpSDdG5AIS56P5G7a6Ancn0AJiKUqnxv7Ado0RNXmSBLKk5z0Yhcub61Akr61ILo27M8KJZv6nNUrl+gtjW41vQIJIeQILKguDlYGA6BhVR35pav33Uq4+pnBrA6qQFdC3FmmWqsI4AlcYSRvDpA1pM45lfrS/YvFr0CrIeNeg1uhFh/HB0Wnbh8ZylvrmSlSDv8t+bV/0Y+rLsOmKCikVLgIutfUxUyls0C5Cyosh42QPGs8O1F1QyYhys3YHB9G76+n/A68icmlotAVeQ7Vm1Ds6KVHsqSYStq0HRjl0XdJv7XPFhBe/p9XwqM4yCC8dt7/pFXRPFO+0E18LN/l4YM/8=
 install: deploy/install.sh
-
 script:
-  - docker build -t service .
-
+- docker build -t test .
 deploy:
+- provider: script
+  script: deploy/publish.sh 057731502320 AKIAIMHKU6FUUGCYUVBA $AWS_DEV_SECRET test
+  on:
+    branch: master
